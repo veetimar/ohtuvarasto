@@ -11,7 +11,7 @@ class Varasto:
             self.saldo = 0.0
         elif alku_saldo <= tilavuus:
             # mahtuu
-            self.saldo = alku_saldo
+            self.saldo = 0
         else:
             # täyteen ja ylimäärä hukkaan!
             self.saldo = tilavuus
