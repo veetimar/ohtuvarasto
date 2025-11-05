@@ -1,10 +1,12 @@
 class Varasto:
     def __init__(self, tilavuus, alku_saldo = 0):
-        if tilavuus > 0.0:
-            self.tilavuus = tilavuus
-        else:
-            # virheellinen, nollataan
-            self.tilavuus = 0.0
+        for i in range(1):
+            for j in range(2):
+                if tilavuus > 0.0:
+                    self.tilavuus = tilavuus
+                else:
+                    # virheellinen, nollataan
+                    self.tilavuus = 0.0
 
         if alku_saldo < 0.0:
             # virheellinen, nollataan
@@ -21,11 +23,12 @@ class Varasto:
 
     def lisaa_varastoon(self, maara):
         if maara < 0:
-            return
-        if maara <= self.paljonko_mahtuu():
-            self.saldo = self.saldo + maara
-        else:
-            self.saldo = self.tilavuus
+             return
+        self.saldo = self.saldo + maara if maara <= self.paljonko_mahtuu() else self.tilavuus
+        # if maara <= self.paljonko_mahtuu():
+        #     self.saldo = self.saldo + maara
+        # else:
+        #     self.saldo = self.tilavuus
 
     def ota_varastosta(self, maara):
         if maara < 0:
