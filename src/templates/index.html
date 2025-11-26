@@ -119,9 +119,9 @@
     <div class="create-form">
         <h2>Create New Warehouse</h2>
         <form action="{{ url_for('create_warehouse') }}" method="POST">
-            <input type="text" name="name" placeholder="Warehouse name" required>
-            <input type="number" name="capacity" placeholder="Capacity" step="0.1" min="0" required>
-            <input type="number" name="initial_balance" placeholder="Initial balance" step="0.1" min="0" value="0">
+            <input type="text" name="name" placeholder="Warehouse name" aria-label="Warehouse name" required>
+            <input type="number" name="capacity" placeholder="Capacity" aria-label="Capacity" step="0.1" min="0" required>
+            <input type="number" name="initial_balance" placeholder="Initial balance" aria-label="Initial balance" step="0.1" min="0" value="0">
             <button type="submit">Create Warehouse</button>
         </form>
     </div>
@@ -139,11 +139,11 @@
             </div>
             <div class="warehouse-actions">
                 <form action="{{ url_for('add_to_warehouse', wh_id=id) }}" method="POST">
-                    <input type="number" name="amount" placeholder="Amount" step="0.1" min="0" required>
+                    <input type="number" name="amount" placeholder="Amount" aria-label="Amount to add" step="0.1" min="0" required>
                     <button type="submit" class="btn-add">Add</button>
                 </form>
                 <form action="{{ url_for('remove_from_warehouse', wh_id=id) }}" method="POST">
-                    <input type="number" name="amount" placeholder="Amount" step="0.1" min="0" required>
+                    <input type="number" name="amount" placeholder="Amount" aria-label="Amount to remove" step="0.1" min="0" required>
                     <button type="submit" class="btn-remove">Remove</button>
                 </form>
                 <form action="{{ url_for('delete_warehouse', wh_id=id) }}" method="POST">

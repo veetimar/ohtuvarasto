@@ -36,7 +36,7 @@ def create_warehouse():
         initial = float(request.form.get("initial_balance", "0"))
     except ValueError:
         return redirect(url_for("index"))
-    if name:
+    if name and capacity > 0 and initial >= 0:
         manager.create(name, capacity, initial)
     return redirect(url_for("index"))
 
@@ -47,27 +47,29 @@ def delete_warehouse(wh_id):
     return redirect(url_for("index"))
 
 
+def _parse_amount(form_data):
+    try:
+        amount = float(form_data.get("amount", "0"))
+        return amount if amount >= 0 else None
+    except ValueError:
+        return None
+
+
 @app.route("/add/<int:wh_id>", methods=["POST"])
 def add_to_warehouse(wh_id):
-    if wh_id in manager.warehouses:
-        try:
-            amount = float(request.form.get("amount", "0"))
-            manager.warehouses[wh_id]["varasto"].lisaa_varastoon(amount)
-        except ValueError:
-            pass
+    amount = _parse_amount(request.form)
+    if wh_id in manager.warehouses and amount is not None:
+        manager.warehouses[wh_id]["varasto"].lisaa_varastoon(amount)
     return redirect(url_for("index"))
 
 
 @app.route("/remove/<int:wh_id>", methods=["POST"])
 def remove_from_warehouse(wh_id):
-    if wh_id in manager.warehouses:
-        try:
-            amount = float(request.form.get("amount", "0"))
-            manager.warehouses[wh_id]["varasto"].ota_varastosta(amount)
-        except ValueError:
-            pass
+    amount = _parse_amount(request.form)
+    if wh_id in manager.warehouses and amount is not None:
+        manager.warehouses[wh_id]["varasto"].ota_varastosta(amount)
     return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
